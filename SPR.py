@@ -7,14 +7,15 @@ from SPRFunctions import *
 
 
 #THE DIRECTORY WITH ALL THE DATA GOES HERE
-dire = "../NefSummer2018/Test/"
+dire = "../NefSummer2018/Nef082018/"
+fname = "7030DOPCDOPS_082018.pdf"
 data = loader(dire)
 #Choose what the default filenames are:
 rinsename = "rinse"
 filename = "conc"
-title = "Myr Nef on 70:30 DOPC:DOPS"
+title = "Myr Nef on 70:30 DOPC:DOPS @ 10% Glycerol"
 ###The various concentrations have to be manually added below in micromolar (first concentation should be zero for baseline)
-concs = np.array([0,0.128,0.250,0.509,1.01,2.016,3.972])
+concs = 0.6*np.array([0,0.130,0.252,0.499])
 
 
 num = np.size(concs) - 1
@@ -27,7 +28,7 @@ ax1 = fig1.add_subplot(1, 1, 1)
 plt.rcParams.update({'font.size': 30})
 plt.rcParams.update({'axes.titlesize': 30})
 #THIS AUTOLABELS VIA THE CONCENTRATIONS
-(fig1,ax1,plotdata,plotfits) = Plotter(fig1,ax1,data,fits,pixels,errors,num,ShowFits=False)
+(fig1,ax1,plotdata,plotfits) = Plotter(fig1,ax1,data,fits,pixels,errors,num,ShowFits=False,rinselimit=450)
 plotdata[0][0].set_label("Baseline")
 for i in range(1,np.size(concs)):
     plotdata[i][0].set_label(str(concs[i])+r' $\mu$ mol') 
@@ -47,8 +48,8 @@ for item in ([ax1.title, ax1.xaxis.label, ax1.yaxis.label] +
              ax1.get_xticklabels() + ax1.get_yticklabels()):
     item.set_fontsize(20)
 
-plt.show()
-plt.savefig(dire+'test.pdf')
+
+plt.savefig(dire+fname)
 
 
 
