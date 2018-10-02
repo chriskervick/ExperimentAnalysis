@@ -1,19 +1,20 @@
 import numpy as np 
 from matplotlib import pyplot as plt
-%config InlineBackend.figure_format = 'retina'
+#%config InlineBackend.figure_format = 'retina'
 from scipy.optimize import curve_fit
 from scipy.interpolate import *
 from SPRFunctions import *
 
 
 #THE DIRECTORY WITH ALL THE DATA GOES HERE
-data = loader("../../../Downloads/spr_500KrasSmgT_20180927/")
+dire = "../NefSummer2018/Test/"
+data = loader(dire)
 #Choose what the default filenames are:
 rinsename = "rinse"
 filename = "conc"
 title = "Myr Nef on 70:30 DOPC:DOPS"
 ###The various concentrations have to be manually added below in micromolar (first concentation should be zero for baseline)
-concs = np.array([0,0.128,0.250,0.509,1.01,2.016,3.972,7,8])
+concs = np.array([0,0.128,0.250,0.509,1.01,2.016,3.972])
 
 
 num = np.size(concs) - 1
@@ -22,7 +23,9 @@ num = np.size(concs) - 1
 ###Figsize and fontsize here
 fig1 = plt.figure(figsize=(14,10))
 ax1 = fig1.add_subplot(1, 1, 1)
-matplotlib.rc('font', size = 18)
+
+plt.rcParams.update({'font.size': 30})
+plt.rcParams.update({'axes.titlesize': 30})
 #THIS AUTOLABELS VIA THE CONCENTRATIONS
 (fig1,ax1,plotdata,plotfits) = Plotter(fig1,ax1,data,fits,pixels,errors,num,ShowFits=False)
 plotdata[0][0].set_label("Baseline")
@@ -35,6 +38,18 @@ except IndexError:
 ax1.set_title(title)
 
 ax1.legend(prop={'size': 12})
-matplotlib.rc('font', size = 18)
-plt.show(ax1)
+
+
+plt.rcParams.update({'font.size': 30})
+plt.rcParams.update({'axes.titlesize': 30})
+
+for item in ([ax1.title, ax1.xaxis.label, ax1.yaxis.label] +
+             ax1.get_xticklabels() + ax1.get_yticklabels()):
+    item.set_fontsize(20)
+
+plt.show()
+plt.savefig(dire+'test.pdf')
+
+
+
 
