@@ -4,14 +4,8 @@
 
 
 import numpy as np
-
-
+import matplotlib
 from matplotlib import pyplot as plt
-<<<<<<< HEAD
-=======
-
-#get_ipython().magic("config InlineBackend.figure_format = 'retina'")
->>>>>>> 1896b7bbbb0d7171455e14eee8d45f9986f83aee
 from scipy.optimize import curve_fit
 from scipy.interpolate import *
 import os
@@ -52,9 +46,6 @@ def loader(adir):
 ### value of the smoothing parameter from it's default of 10
 
 def Organise(d,num,filename="conc",rinsename="rinse",smoothing=10):
-    for key in d:
-        print(key)
-    
     plt.figure(figsize=(14,10))
     for i in range(0,num):
         #print(d[filename+str(i+1)][-1,0])
@@ -98,17 +89,8 @@ def Organise(d,num,filename="conc",rinsename="rinse",smoothing=10):
 def Plotter(fig1, ax1,d,d2,pixels,errors,num,filename="conc",rinsename="rinse",ShowFits = False,rinselimit = 0,linewidth=1,alpha=1):
     plotdata1 = []
     plotfits = []
-<<<<<<< HEAD
 
     from SPRColor import *
-=======
-    plt.rcParams.update({'font.size': 30})
-    plt.rcParams.update({'axes.titlesize': 30})
-
-    import SPRColor
-    #from SPRColor import * 
-    colordict=SPRColor.GetColors()
->>>>>>> 1896b7bbbb0d7171455e14eee8d45f9986f83aee
     colors=colordict[num]
     #cmap = plt.get_cmap('gnuplot2')
     #print(cmap)
@@ -149,11 +131,7 @@ def Plotter(fig1, ax1,d,d2,pixels,errors,num,filename="conc",rinsename="rinse",S
 
 
     ax1.set_title("Title goes here")
-<<<<<<< HEAD
     ax1.set_ylabel(r'$\Delta$$R$ (pixels)')
-=======
-    ax1.set_ylabel("SPR Response (pixels)")
->>>>>>> 1896b7bbbb0d7171455e14eee8d45f9986f83aee
     ax1.set_xlabel("Time (minutes)")
 
     #ax1.legend(prop={'size':10})
