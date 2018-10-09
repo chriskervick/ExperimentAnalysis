@@ -10,6 +10,9 @@ from scipy.optimize import curve_fit
 from scipy.interpolate import *
 import os
 
+
+# In[2]:
+
 ### This loads in every .txt file in the specified path
 ### It is slightly hardcoded for the specific data format produced by SPRAria, but should be easily
 ### changeable to other formats
@@ -80,6 +83,9 @@ def Organise(d,num,filename="conc",rinsename="rinse",smoothing=10):
     #print("ALL DONE")
     return(d,d2,pixels,errors)
 
+
+# In[4]:
+
 def Plotter(fig1, ax1,d,d2,pixels,errors,num,filename="conc",rinsename="rinse",ShowFits = False,rinselimit = 0,linewidth=1,alpha=1):
     plotdata1 = []
     plotfits = []
@@ -96,6 +102,8 @@ def Plotter(fig1, ax1,d,d2,pixels,errors,num,filename="conc",rinsename="rinse",S
     #colors=np.array(['xkcd:purple','xkcd:rose red','xkcd:red orange','xkcd:pumpkin orange','xkcd:golden','xkcd:orchid','xkcd:sea green','xkcd:turquoise','xkcd:azure','xkcd:slate','black'])
     ########
     ######################################################
+
+
 
 
 
@@ -132,8 +140,14 @@ def Plotter(fig1, ax1,d,d2,pixels,errors,num,filename="conc",rinsename="rinse",S
 
     return(fig1,ax1,plotdata1,plotfits)
 
+
+# In[5]:
+
 def Langmuir(concs,bmax,kd):
     return (concs*bmax)/(concs+kd)
+
+
+# In[6]:
 
 def FitToLangmuir(concs,pixels,errors,title):
     popt, popv = curve_fit(Langmuir,concs,pixels,sigma=errors,bounds=(0,[1000,100]))
@@ -146,8 +160,12 @@ def FitToLangmuir(concs,pixels,errors,title):
     plt.ylabel(r'$R_{eq}$')
     plt.xlabel("Concentration (" + r'$\mu$M)')
     string = title + '\n' + r'$b_{max}$ = ' + str('{:.2f}'.format(round(popt[0],2)))+r' $\pm$ '+str('{:.2f}'.format(round(np.sqrt(popv[0][0]),2))) + "\n" + r"$K_d$ = "+str('{:.2f}'.format(round(popt[1],2)))+r' $\pm$ '+str('{:.2f}'.format(round(np.sqrt(popv[1][1]),2))) + r' $\mu$M'
-    plt.text(c2[0]*10, 0.9*popt[0], string, horizontalalignment='center',verticalalignment='center', bbox=dict(facecolor='white', alpha=0.2))
+    plt.text(c2[0]*10, 0.9*popt[0], string, fontsize=14, horizontalalignment='center',verticalalignment='center', bbox=dict(facecolor='white', alpha=0.2))
     plt.savefig('langmuir.png')
 
     print("bmax = ",str(popt[0])+" +- "+str(np.sqrt(popv[0][0])))
     print("kd = ",str(popt[1])+" +- "+str(np.sqrt(popv[1][1])))
+
+
+
+# In[ ]:
