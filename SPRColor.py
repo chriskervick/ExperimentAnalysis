@@ -6,7 +6,7 @@ def GetColors():
     blue = '#069af3'
     red = '#fd3c06'
     crimson = '#be013c'
-    black = '#000000'
+    black = '#31073a'
     teal = '#53fca1'
     purple = '#c875c4'
     yellow = '#f5bf03'

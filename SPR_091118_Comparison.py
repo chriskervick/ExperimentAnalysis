@@ -25,7 +25,8 @@ num = np.size(concs) - 1
 fig1 = plt.figure(figsize=(14,10))
 ax1 = fig1.add_subplot(1, 1, 1)
 
-
+plt.rcParams.update({'font.size': 30})
+plt.rcParams.update({'axes.titlesize': 30})
 #THIS AUTOLABELS VIA THE CONCENTRATIONS
 (fig1,ax1,plotdata,plotfits) = Plotter(fig1,ax1,data,fits,pixels,errors,num,filename=filename,ShowFits=False,rinselimit=0)
 plotdata[0][0].set_label("Baseline")
@@ -37,10 +38,17 @@ except IndexError:
     print("Final rinse is not plotted if ShowFits==True")
 ax1.set_title(title)
 
+
+
+conc1p245um = np.loadtxt("../NefSummer2018/Nef091118/conc1.txt",skiprows=1,usecols=(0,3))
+conc3um = np.loadtxt("../NefSummer2018/Nef083118/conc1.txt",skiprows=1,usecols=(0,3))
+plotdata.append(ax1.plot(conc3um[:,0]/60,conc3um[:,1]-conc3um[0,1],color="xkcd:crimson",linewidth=2,label=r'3 $\mu$M only'))
+plotdata.append(ax1.plot(conc1p245um[:,0]/60,conc1p245um[:,1]-conc1p245um[0,1],color="xkcd:royal blue",linewidth=2,label=r'1.245$\mu$M only'))
+plotdata[(np.size(concs))+1][0].set_label(r'1.245$\mu$M only')
+plotdata[(np.size(concs))+2][0].set_label(r'3$\mu$M only')
 ax1.legend(prop={'size': 12})
-
-
-
+plt.rcParams.update({'font.size': 30})
+plt.rcParams.update({'axes.titlesize': 30})
 
 for item in ([ax1.title, ax1.xaxis.label, ax1.yaxis.label] +
              ax1.get_xticklabels() + ax1.get_yticklabels()):
