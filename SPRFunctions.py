@@ -1,14 +1,14 @@
-# coding: utf-8
 
+# coding: utf-8
 import numpy as np
-import matplotlib
 from matplotlib import pyplot as plt
+#get_ipython().magic("config InlineBackend.figure_format = 'retina'")
 from scipy.optimize import curve_fit
 from scipy.interpolate import *
-from SPRColor import *
 import os
 
-### This loads in every .txt file in the specified path
+
+### This loads in every .txt file in the specified path 
 ### It is slightly hardcoded for the specific data format produced by SPRAria, but should be easily
 ### changeable to other formats
 def loader(adir):
@@ -29,6 +29,7 @@ def loader(adir):
     return(d)
 
 
+
 ### This produces two plots:
 ### The first is the SPR curve for the files "conc0", "conc1" up to "conc(num)" which you specify /
 ### when calling the function, and then plots "rinse" at the end.
@@ -40,11 +41,9 @@ def loader(adir):
 ### The second plot is to visually confirm that the splines are reasonable. If not, you can change the /
 ### value of the smoothing parameter from it's default of 10
 
-
 def Organise(d,num,filename="conc",rinsename="rinse",smoothing=10,CalcFits=False):
 
     
-
     plt.figure(figsize=(14,10))
 
     
@@ -74,7 +73,6 @@ def Organise(d,num,filename="conc",rinsename="rinse",smoothing=10,CalcFits=False
     d2 = {}
     errors = np.zeros(num+1)
     pixels = np.zeros(num+1)
-
     if CalcFits==True:
         for i in range(0,num+1):
             #print(i)
@@ -88,21 +86,22 @@ def Organise(d,num,filename="conc",rinsename="rinse",smoothing=10,CalcFits=False
                 d2[filename+str(i)] = temparray
                 pixels[i] = d2[filename+str(i)][-1,1] - d2[filename+"0"][-1,1]
     #print("ALL DONE")    
-
     return(d,d2,pixels,errors)
+
 
 
 def Plotter(fig1, ax1,d,d2,pixels,errors,num,filename="conc",rinsename="rinse",ShowFits = False,rinselimit = 0,linewidth=1,alpha=1):
     plotdata1 = []
     plotfits = []
+    plt.rcParams.update({'axes.titlesize': 30})
 
-
+    import SPRColor
+ 
+    colordict=SPRColor.GetColors()
     colors=colordict[num]
-
-    #fig1 = plt.figure(figsize=(14,10))
-    #ax1 = fig1.add_subplot(1, 1, 1)
-    baseline = np.mean(d[filename+str(0)][-50:,1])  #average of last 50 points of baseline measurement
-
+ 
+    baseline = d[filename+'0'][-1,1]
+    
     if ShowFits==False:
         for i in range(0,num+1):
             #print(i)
@@ -124,16 +123,14 @@ def Plotter(fig1, ax1,d,d2,pixels,errors,num,filename="conc",rinsename="rinse",S
                 plotfits.append(ax1.plot(d2[filename+str(i)][:,0],d2[filename+str(i)][:,1],color='white',linewidth=1))
 
 
-
+    
     ax1.set_title("Title goes here")
-    ax1.set_ylabel(r'$\Delta$$R$ (pixels)','FontSize',18)
+    ax1.set_ylabel("SPR Response (pixels)")
     ax1.set_xlabel("Time (minutes)")
 
-    #ax1.legend(prop={'size':10})
-    #plt.show()
-    #fig1.close()
 
     return(fig1,ax1,plotdata1,plotfits)
+
 
 
 def Langmuir(concs,bmax,kd):
@@ -142,17 +139,14 @@ def DimerLangmuir(concs,c1,c2,scale):
     return scale*(c1*concs + 2*concs**2)/(c2 + c1*concs + concs**2)
 
 
-
-def FitToLangmuir(concs,pixels,errors,title):
-    popt, popv = curve_fit(Langmuir,concs,pixels,sigma=errors,bounds=(0,[1000,100]))
-    fig = plt.figure(figsize=(10,8))
-
+def FitToLangmuir(concs,pixels,errors):
+    popt, popv = curve_fit(Langmuir,concs,pixels,sigma=errors,bounds=(0,[100,100]))
+    plt.figure(figsize=(10,8))
     plt.errorbar(concs,pixels,yerr=errors/2,fmt='o')
     c2 = np.arange(0.01,1000,0.01)
     plt.plot(c2,Langmuir(c2,*popt))
     plt.title("Langmuir Binding Curve")
     plt.xscale('log')
-
     plt.ylabel("R_eq")
     plt.xlabel("Concentration (um)")
     string = "bmax = " + str(popt[0])+" +- "+str(np.sqrt(popv[0][0])) + "\n" + "kd = " + str(popt[1])+" +- "+str(np.sqrt(popv[1][1]))
@@ -176,6 +170,10 @@ def FitToDimerLangmuir(concs,pixels,errors):
     #plt.text(0.4, 1.4, string, horizontalalignment='center',verticalalignment='center', transform=ax.transAxes,bbox=dict(facecolor='red', alpha=0.2))
     plt.show()
     
+    print("c1 = ",str(popt[0])+" +- "+str(np.sqrt(popv[0][0])))
+    print("c2 = ",str(popt[1])+" +- "+str(np.sqrt(popv[1][1])))
+    print("scale = ",str(popt[2])+" +- "+str(np.sqrt(popv[2][2])))
+ 
 
-    print("bmax = ",str(popt[0])+" +- "+str(np.sqrt(popv[0][0])))
-    print("kd = ",str(popt[1])+" +- "+str(np.sqrt(popv[1][1])))
+
+
