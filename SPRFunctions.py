@@ -83,7 +83,7 @@ def Plotter(fig1, ax1,d,d2,pixels,errors,num,filename="conc",rinsename="rinse",S
     plotdata1 = []
     plotfits = []
 
-
+    colordict = GetColors()
     colors=colordict[num]
 
     #fig1 = plt.figure(figsize=(14,10))
@@ -110,7 +110,7 @@ def Plotter(fig1, ax1,d,d2,pixels,errors,num,filename="conc",rinsename="rinse",S
 
 
     ax1.set_title("Title goes here")
-    ax1.set_ylabel(r'$\Delta$$R$ (pixels)','FontSize',18)
+    ax1.set_ylabel(r'$\Delta$$R$ (pixels)')
     ax1.set_xlabel("Time (minutes)")
 
     #ax1.legend(prop={'size':10})
