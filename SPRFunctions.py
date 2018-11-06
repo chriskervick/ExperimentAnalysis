@@ -1,8 +1,5 @@
 # coding: utf-8
 
-# In[1]:
-
-
 import numpy as np
 import matplotlib
 from matplotlib import pyplot as plt
@@ -10,9 +7,6 @@ from scipy.optimize import curve_fit
 from scipy.interpolate import *
 from SPRColor import *
 import os
-
-
-# In[2]:
 
 ### This loads in every .txt file in the specified path
 ### It is slightly hardcoded for the specific data format produced by SPRAria, but should be easily
@@ -85,28 +79,12 @@ def Organise(d,num,filename="conc",rinsename="rinse",smoothing=10):
     return(d,d2,pixels,errors)
 
 
-# In[4]:
-
 def Plotter(fig1, ax1,d,d2,pixels,errors,num,filename="conc",rinsename="rinse",ShowFits = False,rinselimit = 0,linewidth=1,alpha=1):
     plotdata1 = []
     plotfits = []
 
 
     colors=colordict[num]
-    #cmap = plt.get_cmap('gnuplot2')
-    #print(cmap)
-    #colors = [cm(i) for i in np.linspace(0, 1, num+2)]
-
-
-    ####### CHANGE THE COLORS HERE ########################
-    #######
-    #colors=np.array(['xkcd:purple','xkcd:rose red','xkcd:red orange','xkcd:pumpkin orange','xkcd:golden','xkcd:orchid','xkcd:sea green','xkcd:turquoise','xkcd:azure','xkcd:slate','black'])
-    ########
-    ######################################################
-
-
-
-
 
     #fig1 = plt.figure(figsize=(14,10))
     #ax1 = fig1.add_subplot(1, 1, 1)
@@ -142,13 +120,9 @@ def Plotter(fig1, ax1,d,d2,pixels,errors,num,filename="conc",rinsename="rinse",S
     return(fig1,ax1,plotdata1,plotfits)
 
 
-# In[5]:
-
 def Langmuir(concs,bmax,kd):
     return (concs*bmax)/(concs+kd)
 
-
-# In[6]:
 
 def FitToLangmuir(concs,pixels,errors,title):
     popt, popv = curve_fit(Langmuir,concs,pixels,sigma=errors,bounds=(0,[1000,100]))
@@ -166,7 +140,3 @@ def FitToLangmuir(concs,pixels,errors,title):
 
     print("bmax = ",str(popt[0])+" +- "+str(np.sqrt(popv[0][0])))
     print("kd = ",str(popt[1])+" +- "+str(np.sqrt(popv[1][1])))
-
-
-
-# In[ ]:
