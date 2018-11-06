@@ -32,7 +32,7 @@ ax1 = fig1.add_subplot(1, 1, 1)
 (fig1,ax1,plotdata,plotfits) = Plotter(fig1,ax1,data,fits,pixels,errors,num,ShowFits=False)
 plotdata[0][0].set_label("Baseline")
 for i in range(1,np.size(concs)):
-    plotdata[i][0].set_label(str(concs[i])+r' $\mu$ mol')
+    plotdata[i][0].set_label(str(concs[i])+r' $\mu$M')
 try:
     plotdata[(np.size(concs))][0].set_label("Rinse")
 except IndexError:
