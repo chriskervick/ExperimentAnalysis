@@ -1,8 +1,5 @@
 import numpy as np
 from matplotlib import pyplot as plt
-%config InlineBackend.figure_format = 'retina'
-from scipy.optimize import curve_fit
-from scipy.interpolate import *
 from SPRFunctions import *
 
 #THE DIRECTORY WITH ALL THE DATA GOES HERE
@@ -35,7 +32,8 @@ ax1 = fig1.add_subplot(1, 1, 1)
 (fig1,ax1,plotdata,plotfits) = Plotter(fig1,ax1,data,fits,pixels,errors,num,ShowFits=False)
 plotdata[0][0].set_label("Baseline")
 for i in range(1,np.size(concs)):
-    plotdata[i][0].set_label(str(concs[i])+r' $\mu$ mol')
+    plotdata[i][0].set_label(str(concs[i])+r' $\mu$M')
+
 try:
     plotdata[(np.size(concs))][0].set_label("Rinse")
 except IndexError:
@@ -51,7 +49,7 @@ num2 = np.size(concs2) - 1
 (fig1,ax1,plotdata2,plotfits2) = Plotter(fig1,ax1,data2,fits2,pixels2,errors2,num2,ShowFits=False,linewidth=2,alpha=0.5)
 plotdata2[0][0].set_label("Baseline")
 for i in range(1,np.size(concs2)):
-    plotdata2[i][0].set_label(str(concs2[i])+r' $\mu$ mol')
+    plotdata2[i][0].set_label(str(concs2[i])+r' $\mu$M')
 try:
     plotdata2[(np.size(concs2))][0].set_label("Rinse")
 except IndexError:

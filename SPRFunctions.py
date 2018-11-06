@@ -8,7 +8,7 @@ from scipy.interpolate import *
 import os
 
 
-### This loads in every .txt file in the specified path 
+### This loads in every .txt file in the specified path
 ### It is slightly hardcoded for the specific data format produced by SPRAria, but should be easily
 ### changeable to other formats
 def loader(adir):
@@ -43,13 +43,13 @@ def loader(adir):
 
 def Organise(d,num,filename="conc",rinsename="rinse",smoothing=10,CalcFits=False):
 
-    
+
     plt.figure(figsize=(14,10))
 
-    
+
     for j in range(0,np.size(d[filename+'0'][:,0])):
-        d[filename+'0'][j][0] = d[filename+'0'][j][0] - d[filename+'0'][-1][0] 
-    
+        d[filename+'0'][j][0] = d[filename+'0'][j][0] - d[filename+'0'][-1][0]
+
     for i in range(0,num):
         #print(d[filename+str(i+1)][-1,0])
         #print(d[filename+str(i)][-1,0])
@@ -85,7 +85,7 @@ def Organise(d,num,filename="conc",rinsename="rinse",smoothing=10,CalcFits=False
                 temparray[:,1] = f(d[filename+str(i)][:,0]/60)
                 d2[filename+str(i)] = temparray
                 pixels[i] = d2[filename+str(i)][-1,1] - d2[filename+"0"][-1,1]
-    #print("ALL DONE")    
+    #print("ALL DONE")
     return(d,d2,pixels,errors)
 
 
@@ -96,12 +96,12 @@ def Plotter(fig1, ax1,d,d2,pixels,errors,num,filename="conc",rinsename="rinse",S
     plt.rcParams.update({'axes.titlesize': 30})
 
     import SPRColor
- 
+
     colordict=SPRColor.GetColors()
     colors=colordict[num]
- 
+
     baseline = d[filename+'0'][-1,1]
-    
+
     if ShowFits==False:
         for i in range(0,num+1):
             #print(i)
@@ -123,8 +123,9 @@ def Plotter(fig1, ax1,d,d2,pixels,errors,num,filename="conc",rinsename="rinse",S
                 plotfits.append(ax1.plot(d2[filename+str(i)][:,0],d2[filename+str(i)][:,1],color='white',linewidth=1))
 
 
-    
+
     ax1.set_title("Title goes here")
+
     ax1.set_ylabel("SPR Response (pixels)")
     ax1.set_xlabel("Time (minutes)")
 
@@ -152,10 +153,10 @@ def FitToLangmuir(concs,pixels,errors):
     string = "bmax = " + str(popt[0])+" +- "+str(np.sqrt(popv[0][0])) + "\n" + "kd = " + str(popt[1])+" +- "+str(np.sqrt(popv[1][1]))
     #plt.text(0.4, 1.4, string, horizontalalignment='center',verticalalignment='center', transform=ax.transAxes,bbox=dict(facecolor='red', alpha=0.2))
     plt.show()
-    
+
     print("bmax = ",str(popt[0])+" +- "+str(np.sqrt(popv[0][0])))
     print("kd = ",str(popt[1])+" +- "+str(np.sqrt(popv[1][1])))
-    
+
 def FitToDimerLangmuir(concs,pixels,errors):
     popt, popv = curve_fit(DimerLangmuir,concs,pixels,sigma=errors,bounds=(0,[10000,100000,10000]))
     plt.figure(figsize=(10,8))
@@ -169,11 +170,7 @@ def FitToDimerLangmuir(concs,pixels,errors):
     string = "bmax = " + str(popt[0])+" +- "+str(np.sqrt(popv[0][0])) + "\n" + "kd = " + str(popt[1])+" +- "+str(np.sqrt(popv[1][1]))
     #plt.text(0.4, 1.4, string, horizontalalignment='center',verticalalignment='center', transform=ax.transAxes,bbox=dict(facecolor='red', alpha=0.2))
     plt.show()
-    
+
     print("c1 = ",str(popt[0])+" +- "+str(np.sqrt(popv[0][0])))
     print("c2 = ",str(popt[1])+" +- "+str(np.sqrt(popv[1][1])))
     print("scale = ",str(popt[2])+" +- "+str(np.sqrt(popv[2][2])))
- 
-
-
-
