@@ -1,21 +1,12 @@
 
 # coding: utf-8
-
-# In[1]:
-
-
 import numpy as np
-
-
 from matplotlib import pyplot as plt
-
 #get_ipython().magic("config InlineBackend.figure_format = 'retina'")
 from scipy.optimize import curve_fit
 from scipy.interpolate import *
 import os
 
-
-# In[2]:
 
 ### This loads in every .txt file in the specified path 
 ### It is slightly hardcoded for the specific data format produced by SPRAria, but should be easily
@@ -38,14 +29,6 @@ def loader(adir):
     return(d)
 
 
-# In[3]:
-
-"""
-
-ththththt
-
-"""
-
 
 ### This produces two plots:
 ### The first is the SPR curve for the files "conc0", "conc1" up to "conc(num)" which you specify /
@@ -59,8 +42,7 @@ ththththt
 ### value of the smoothing parameter from it's default of 10
 
 def Organise(d,num,filename="conc",rinsename="rinse",smoothing=10,CalcFits=False):
-    for key in d:
-        print(key)
+
     
     plt.figure(figsize=(14,10))
 
@@ -107,35 +89,17 @@ def Organise(d,num,filename="conc",rinsename="rinse",smoothing=10,CalcFits=False
     return(d,d2,pixels,errors)
 
 
-# In[4]:
 
 def Plotter(fig1, ax1,d,d2,pixels,errors,num,filename="conc",rinsename="rinse",ShowFits = False,rinselimit = 0,linewidth=1,alpha=1):
     plotdata1 = []
     plotfits = []
-    plt.rcParams.update({'font.size': 30})
     plt.rcParams.update({'axes.titlesize': 30})
 
     import SPRColor
-    #from SPRColor import * 
+ 
     colordict=SPRColor.GetColors()
     colors=colordict[num]
-    #cmap = plt.get_cmap('gnuplot2')
-    #print(cmap)
-    #colors = [cm(i) for i in np.linspace(0, 1, num+2)]
-
-
-    ####### CHANGE THE COLORS HERE ########################
-    #######
-    #colors=np.array(['xkcd:purple','xkcd:rose red','xkcd:red orange','xkcd:pumpkin orange','xkcd:golden','xkcd:orchid','xkcd:sea green','xkcd:turquoise','xkcd:azure','xkcd:slate','black'])
-    ########
-    ######################################################
-
-
-    
-
-    
-    #fig1 = plt.figure(figsize=(14,10))
-    #ax1 = fig1.add_subplot(1, 1, 1)
+ 
     baseline = d[filename+'0'][-1,1]
     
     if ShowFits==False:
@@ -164,22 +128,16 @@ def Plotter(fig1, ax1,d,d2,pixels,errors,num,filename="conc",rinsename="rinse",S
     ax1.set_ylabel("SPR Response (pixels)")
     ax1.set_xlabel("Time (minutes)")
 
-    #ax1.legend(prop={'size':10})
-    #plt.show()
-    #fig1.close()
 
     return(fig1,ax1,plotdata1,plotfits)
 
 
-# In[5]:
 
 def Langmuir(concs,bmax,kd):
     return (concs*bmax)/(concs+kd)
 def DimerLangmuir(concs,c1,c2,scale):
     return scale*(c1*concs + 2*concs**2)/(c2 + c1*concs + concs**2)
 
-
-# In[6]:
 
 def FitToLangmuir(concs,pixels,errors):
     popt, popv = curve_fit(Langmuir,concs,pixels,sigma=errors,bounds=(0,[100,100]))
@@ -212,12 +170,10 @@ def FitToDimerLangmuir(concs,pixels,errors):
     #plt.text(0.4, 1.4, string, horizontalalignment='center',verticalalignment='center', transform=ax.transAxes,bbox=dict(facecolor='red', alpha=0.2))
     plt.show()
     
-    print("bmax = ",str(popt[0])+" +- "+str(np.sqrt(popv[0][0])))
-    print("kd = ",str(popt[1])+" +- "+str(np.sqrt(popv[1][1])))
-    
-
-
-# In[ ]:
+    print("c1 = ",str(popt[0])+" +- "+str(np.sqrt(popv[0][0])))
+    print("c2 = ",str(popt[1])+" +- "+str(np.sqrt(popv[1][1])))
+    print("scale = ",str(popt[2])+" +- "+str(np.sqrt(popv[2][2])))
+ 
 
 
 
