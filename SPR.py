@@ -43,6 +43,11 @@ for item in ([ax1.title, ax1.xaxis.label, ax1.yaxis.label] +
              ax1.get_xticklabels() + ax1.get_yticklabels()):
     item.set_fontsize(16)
 
+###Adding text or arrow annotations to plot
+#ax1.annotate("2.0" + r' $\mu$$M$' + " \novernight",(315,20),fontsize=14)
+#ax1.annotate(" ",xytext=(330,20),xy = (330,13),arrowprops=dict(facecolor='black',shrink=0.05,width=1,headwidth=5))
+#ax1.annotate(" ",xytext=(330,21),xy = (330,29),arrowprops=dict(facecolor='black',shrink=0.05,width=1,headwidth=5))
+
 #Adds date below the plot
 ax1.annotate('Date of Exp: 20181003', (0,0), (0, -50), xycoords='axes fraction', textcoords='offset points', va='top')
 

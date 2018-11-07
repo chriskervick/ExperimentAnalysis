@@ -69,6 +69,11 @@ legend1 = ax1.legend(handles=labels1,prop={'size': 12},loc=0)####CHANGE LEGEND P
 ax1.add_artist(legend1)
 ax1.legend(handles=labels2,prop={'size': 12},loc=0)######CHANGE LEGEND POSITIONS HERE
 
+###Adding text or arrow annotations to plot
+#ax1.annotate("2.0" + r' $\mu$$M$' + " \novernight",(315,20),fontsize=14)
+#ax1.annotate(" ",xytext=(330,20),xy = (330,13),arrowprops=dict(facecolor='black',shrink=0.05,width=1,headwidth=5))
+#ax1.annotate(" ",xytext=(330,21),xy = (330,29),arrowprops=dict(facecolor='black',shrink=0.05,width=1,headwidth=5))
+
 #Adds date below the plot
 ax1.annotate('Date of Exp: 20181003', (0,0), (0, -50), xycoords='axes fraction', textcoords='offset points', va='top')
 
