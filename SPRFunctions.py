@@ -90,7 +90,7 @@ def Organise(d,num,filename="conc",rinsename="rinse",smoothing=10,CalcFits=False
 
 
 
-def Plotter(fig1, ax1,d,d2,pixels,errors,num,filename="conc",rinsename="rinse",ShowFits = False,rinselimit = 0,linewidth=1,alpha=1):
+def Plotter(fig1, ax1,d,d2,pixels,errors,num,filename="conc",rinsename="rinse",ShowFits = False,isColorless = False,rinselimit = 0,linewidth=1,alpha=1):
     plotdata1 = []
     plotfits = []
     plt.rcParams.update({'axes.titlesize': 30})
@@ -99,7 +99,8 @@ def Plotter(fig1, ax1,d,d2,pixels,errors,num,filename="conc",rinsename="rinse",S
 
     colordict=SPRColor.GetColors()
     colors=colordict[num]
-
+    if isColorless == True:
+        colors = np.array(['#929591','#929591','#929591','#929591','#929591','#929591','#929591','#929591','#929591','#929591','#929591','#929591','#929591','#929591','#929591','#929591','#929591','#929591','#929591','#929591','#929591',])
     baseline = d[filename+'0'][-1,1]
 
     if ShowFits==False:

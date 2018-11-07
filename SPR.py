@@ -5,8 +5,8 @@ from SPRFunctions import *
 
 #THE DIRECTORY WITH ALL THE DATA GOES HERE
 
-dire = "../NefSummer2018/Nef091218/"
-fname = "7030POPCPOPG_091218_COMPARISON"
+dire = "./data/"
+fname = "spr_date_exp"
 data = loader(dire)
 #Choose what the default filenames are:
 rinsename = "rinse"
@@ -30,13 +30,13 @@ ax1 = fig1.add_subplot(1, 1, 1)
 (fig1,ax1,plotdata,plotfits) = Plotter(fig1,ax1,data,fits,pixels,errors,num,filename=filename,ShowFits=False,rinselimit=0)
 plotdata[0][0].set_label("Baseline")
 for i in range(1,np.size(concs)):
-    plotdata[i][0].set_label(str(concs[i])+r' $\mu$M') 
+    plotdata[i][0].set_label(str(concs[i])+r' $\mu$M')
 
 try:
     plotdata[(np.size(concs))][0].set_label("Rinse")
 except IndexError:
     print("Final rinse is not plotted if ShowFits==True")
-    
+
 
 ax1.set_title(title)
 
@@ -50,10 +50,10 @@ for item in ([ax1.title, ax1.xaxis.label, ax1.yaxis.label] +
     item.set_fontsize(20)
 
 
-    
 
-plt.savefig(dire+fname+'.pdf')
-plt.savefig(dire+fname+'.png')
+
+plt.savefig(fname+'.pdf')
+plt.savefig(name+'.png')
 
 ax1.set_title(title)
 
