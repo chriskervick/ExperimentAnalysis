@@ -69,4 +69,7 @@ legend1 = ax1.legend(handles=labels1,prop={'size': 12},loc=0)####CHANGE LEGEND P
 ax1.add_artist(legend1)
 ax1.legend(handles=labels2,prop={'size': 12},loc=0)######CHANGE LEGEND POSITIONS HERE
 
+#Adds date below the plot
+ax1.annotate('Date of Exp: 20181003', (0,0), (0, -50), xycoords='axes fraction', textcoords='offset points', va='top')
+
 plt.show(ax1)
