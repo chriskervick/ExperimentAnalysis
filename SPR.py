@@ -4,7 +4,8 @@ from SPRFunctions import *
 
 #Specify data directory, plot title
 dire = "./data/"
-title = "Myr Nef on 70:30 POPC:POPG @ 8% and 2.5% Glycerol"
+title = "Here is the TItle"
+fname = "spr_20181106_smgOvernight"
 
 #Specify measured concentrations in micromolar (first should be zero for baseline)
 concs = np.array([0,0.128,0.250,0.509,1.010,2.016,3.972])
