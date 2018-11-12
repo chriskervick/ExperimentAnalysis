@@ -1,8 +1,5 @@
-import numpy as np 
+import numpy as np
 from matplotlib import pyplot as plt
-%config InlineBackend.figure_format = 'retina'
-from scipy.optimize import curve_fit
-from scipy.interpolate import *
 from SPRFunctions import *
 
 #THE DIRECTORY WITH ALL THE DATA GOES HERE
@@ -35,13 +32,14 @@ ax1 = fig1.add_subplot(1, 1, 1)
 (fig1,ax1,plotdata,plotfits) = Plotter(fig1,ax1,data,fits,pixels,errors,num,ShowFits=False)
 plotdata[0][0].set_label("Baseline")
 for i in range(1,np.size(concs)):
-    plotdata[i][0].set_label(str(concs[i])+r' $\mu$ mol') 
+    plotdata[i][0].set_label(str(concs[i])+r' $\mu$M')
+
 try:
     plotdata[(np.size(concs))][0].set_label("Rinse")
 except IndexError:
     print("Final rinse is not plotted if ShowFits==True")
 ax1.set_title(title)
-  
+
 
 
 
@@ -51,19 +49,19 @@ num2 = np.size(concs2) - 1
 (fig1,ax1,plotdata2,plotfits2) = Plotter(fig1,ax1,data2,fits2,pixels2,errors2,num2,ShowFits=False,linewidth=2,alpha=0.5)
 plotdata2[0][0].set_label("Baseline")
 for i in range(1,np.size(concs2)):
-    plotdata2[i][0].set_label(str(concs2[i])+r' $\mu$ mol') 
+    plotdata2[i][0].set_label(str(concs2[i])+r' $\mu$M')
 try:
     plotdata2[(np.size(concs2))][0].set_label("Rinse")
 except IndexError:
     print("Final rinse is not plotted if ShowFits==True")
 
-    
-    
-#THIS CREATES TWO SEPARATE LEGENDS    
+
+
+#THIS CREATES TWO SEPARATE LEGENDS
 labels1 = []
 for i in range(0,np.size(concs)):
     labels1.append(plotdata[i][0])
-    
+
 labels2 = []
 for i in range(0,np.size(concs2)):
     labels2.append(plotdata2[i][0])
@@ -71,5 +69,4 @@ legend1 = ax1.legend(handles=labels1,prop={'size': 12},loc=0)####CHANGE LEGEND P
 ax1.add_artist(legend1)
 ax1.legend(handles=labels2,prop={'size': 12},loc=0)######CHANGE LEGEND POSITIONS HERE
 
-matplotlib.rc('font', size = 18)
 plt.show(ax1)
