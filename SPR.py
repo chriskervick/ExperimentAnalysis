@@ -53,6 +53,6 @@ for item in ([ax1.title, ax1.xaxis.label, ax1.yaxis.label] +
 ax1.annotate('Date of Exp: 20181003', (0,0), (0, -50), xycoords='axes fraction', textcoords='offset points', va='top')
 
 plt.savefig(fname+'.pdf')
-plt.savefig(name+'.png')
+plt.savefig(fname+'.png')
 
 #FitToLangmuir(concs,pixels,errors,title)
