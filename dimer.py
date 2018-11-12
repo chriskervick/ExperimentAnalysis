@@ -2,10 +2,9 @@ import numpy as np
 from matplotlib import pyplot as plt
 from SPRFunctions import *
 import matplotlib
-import argparse
-
 
 #THE DIRECTORY WITH ALL THE DATA GOES HERE
+
 dire = "../NefSummer2018/Nef091218/"
 fname = "7030POPCPOPG_091218_COMPARISON"
 data = loader(dire)
@@ -19,18 +18,12 @@ num = np.size(concs) - 1
 (data,fits,pixels,errors) = Organise(data,num,smoothing=5,filename = filename,CalcFits=True)
 fig1 = plt.figure(figsize=(14,10))
 ax1 = fig1.add_subplot(1, 1, 1)
-(fig1,ax1,plotdata,plotfits) = Plotter(fig1,ax1,data,fits,pixels,errors,num,concs,title=title,filename=filename,ShowFits=False,rinselimit=0,annotate=False)
+(fig1,ax1,plotdata,plotfits) = Plotter(fig1,ax1,data,fits,pixels,errors,num,concs,title=title,filename=filename,ShowFits=False,rinselimit=0)
 
-#Chris Autodate
-ax1.annotate("Date of Exp: "+fname[0:6], (0,-0.1), xycoords='axes fraction')
-#Dennis Autodate
-#ax1.annotate("Date of Exp: "+fname[4:12], (0,-0.1), xycoords='axes fraction')
 
 plt.savefig(dire+fname+'.pdf')
 plt.savefig(dire+fname+'.png')
-#plt.savefig("../AllData/"+fname+'.pdf')
-#plt.savefig("../AllData/"+fname+'.png')
 
 
-FitToLangmuir(concs,pixels,errors,dire,fname)
-#FitToDimerAndSingleLangmuir(concs,pixels,errors,dire,fname)
+#FitToLangmuir(concs,pixels,errors)
+FitToDimerAndSingleLangmuir(concs,pixels,errors,dire,fname)
