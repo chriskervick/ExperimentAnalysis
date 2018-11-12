@@ -8,7 +8,7 @@ from scipy.interpolate import *
 import os
 
 
-### This loads in every .txt file in the specified path 
+### This loads in every .txt file in the specified path
 ### It is slightly hardcoded for the specific data format produced by SPRAria, but should be easily
 ### changeable to other formats
 def loader(adir):
@@ -43,13 +43,13 @@ def loader(adir):
 
 def Organise(d,num,filename="conc",rinsename="rinse",smoothing=10,CalcFits=False):
 
-    
+
     plt.figure(figsize=(14,10))
 
-    
+
     for j in range(0,np.size(d[filename+'0'][:,0])):
-        d[filename+'0'][j][0] = d[filename+'0'][j][0] - d[filename+'0'][-1][0] 
-    
+        d[filename+'0'][j][0] = d[filename+'0'][j][0] - d[filename+'0'][-1][0]
+
     for i in range(0,num):
         #print(d[filename+str(i+1)][-1,0])
         #print(d[filename+str(i)][-1,0])
@@ -85,7 +85,7 @@ def Organise(d,num,filename="conc",rinsename="rinse",smoothing=10,CalcFits=False
                 temparray[:,1] = f(d[filename+str(i)][:,0]/60)
                 d2[filename+str(i)] = temparray
                 pixels[i] = d2[filename+str(i)][-1,1] - d2[filename+"0"][-1,1]
-    #print("ALL DONE")    
+    #print("ALL DONE")
     return(d,d2,pixels,errors)
 
 
@@ -96,12 +96,12 @@ def Plotter(fig1, ax1,d,d2,pixels,errors,num,concs,title="Blank",filename="conc"
     plt.rcParams.update({'axes.titlesize': 30})
 
     import SPRColor
- 
+
     colordict=SPRColor.GetColors()
     colors=colordict[num]
- 
+
     baseline = d[filename+'0'][-1,1]
-    
+
     if ShowFits==False:
         for i in range(0,num+1):
             #print(i)
@@ -123,8 +123,10 @@ def Plotter(fig1, ax1,d,d2,pixels,errors,num,concs,title="Blank",filename="conc"
                 plotfits.append(ax1.plot(d2[filename+str(i)][:,0],d2[filename+str(i)][:,1],color='white',linewidth=1))
 
 
+
     
     ax1.set_title(title)
+
     ax1.set_ylabel("SPR Response (pixels)")
     ax1.set_xlabel("Time (minutes)")
 
