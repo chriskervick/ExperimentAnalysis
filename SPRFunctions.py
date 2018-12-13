@@ -124,7 +124,7 @@ def Plotter(fig1, ax1,d,d2,pixels,errors,num,concs,title="Blank",filename="conc"
 
 
 
-    
+
     ax1.set_title(title)
 
     ax1.set_ylabel("SPR Response (pixels)")
@@ -133,13 +133,13 @@ def Plotter(fig1, ax1,d,d2,pixels,errors,num,concs,title="Blank",filename="conc"
     if legend==True:
         plotdata1[0][0].set_label("Baseline")
         for i in range(1,np.size(concs)):
-            plotdata1[i][0].set_label(str(concs[i])+r' $\mu$M') 
+            plotdata1[i][0].set_label(str(concs[i])+r' $\mu$M')
         try:
             plotdata1[(np.size(concs))][0].set_label("Rinse")
         except IndexError:
             print("Final rinse is not plotted if ShowFits==True")
-        ax1.legend(fontsize=16)    
-        
+        ax1.legend(fontsize=16)
+
     if annotate==True:
         #####Attempt at autolabelling of data on plot
         baseline = d[filename+'0'][-1,1]
@@ -181,7 +181,7 @@ def FitToLangmuir(concs,pixels,errors,dire,fname):
     ax1.set_xscale('log')
     ax1.set_ylabel("Response")
     ax1.set_xlabel(r'Concentration ($\mu M$)')
-    s_string = r'$\beta_{max}$ = ' + str(round(spopt[0],2))+r'$\pm$'+str(round(np.sqrt(spopv[0][0]),2)) + "\n" + r'$k_d$ = ' + str(round(spopt[1],2))+r'$\pm$' +str(round(np.sqrt(spopv[1][1]),2))
+    s_string = r'$B_{max}$ = ' + str(round(spopt[0],2))+r'$\pm$'+str(round(np.sqrt(spopv[0][0]),2)) + "\n" + r'$k_d$ = ' + str(round(spopt[1],2))+r'$\pm$' +str(round(np.sqrt(spopv[1][1]),2))
     ax1.text(0.2, 0.475, s_string, horizontalalignment='center',verticalalignment='top', transform=ax1.transAxes,bbox=dict(facecolor='red', alpha=0.2))
 
     ax1.legend(loc=2,fontsize=16)
@@ -261,7 +261,3 @@ def FitToDimerAndSingleLangmuir(concs,pixels,errors,dire,fname):
     print("c1 = ",str(dpopt[0])+" +- "+str(np.sqrt(dpopv[0][0])))
     print("c2 = ",str(dpopt[1])+" +- "+str(np.sqrt(dpopv[1][1])))
     print("scale = ",str(dpopt[2])+" +- "+str(np.sqrt(dpopv[2][2])))
-
-
-
-
